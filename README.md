@@ -13,6 +13,10 @@ A simple and interactive 2-player Tic Tac Toe game with win-check logic and resp
 A functional stopwatch with start, stop, reset, and lap tracking features.
 The entire project is implemented in a single `index.html` file with embedded CSS and JavaScript.
 
+### 🧠Quiz App with Timer
+
+This is a mini project built using JavaScript, designed to make quizzes more interactive and engaging.
+
 ### 🕒 Digital Clock
 
 A real-time digital clock that displays current time (hours, minutes, seconds) using JavaScript.
