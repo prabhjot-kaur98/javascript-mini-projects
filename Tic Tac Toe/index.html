@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tic Tac Toe</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: white;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+.board {
+    width: 180px;
+    margin: 30px auto;
+}
+
+.row {
+    display: flex;
+}
+
+.col {
+    height: 60px;
+    width: 60px;
+    border: 2px solid #ffffff33;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.col:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.winner {
+    background-color: #00ffcc !important;
+    color: black;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #00ffcc;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#result {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2>Tic Tac Toe</h2>
+<h4>Turn: <span id="turn">X</span></h4>
+
+<div class="board">
+
+<div class="row">
+    <div onclick="playerclick(this)" id="0" class="col"></div>
+    <div onclick="playerclick(this)" id="1" class="col"></div>
+    <div onclick="playerclick(this)" id="2" class="col"></div>
+</div>
+
+<div class="row">
+    <div onclick="playerclick(this)" id="3" class="col"></div>
+    <div onclick="playerclick(this)" id="4" class="col"></div>
+    <div onclick="playerclick(this)" id="5" class="col"></div>
+</div>
+
+<div class="row">
+    <div onclick="playerclick(this)" id="6" class="col"></div>
+    <div onclick="playerclick(this)" id="7" class="col"></div>
+    <div onclick="playerclick(this)" id="8" class="col"></div>
+</div>
+
+</div>
+
+<button onclick="resetGame()">Reset</button>
+
+<p id="result"></p>
+
+<script>
+var current_player = "X";
+var gamedata = Array(9).fill(null);
+var gameOver = false;
+
+function playerclick(el){
+    if(gameOver) return;
+
+    var id = el.id;
+
+    if(gamedata[id] != null){
+        return;
+    }
+
+    gamedata[id] = current_player;
+    el.innerHTML = current_player;
+
+    if(checkwinner()){
+        document.getElementById("result").innerHTML = current_player + " Wins!";
+        gameOver = true;
+        return;
+    }
+
+    current_player = (current_player === "X") ? "O" : "X";
+    document.getElementById("turn").innerHTML = current_player;
+}
+
+function checkwinner(){
+    var winPatterns = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+    ];
+
+    for(let pattern of winPatterns){
+        let [a,b,c] = pattern;
+
+        if(gamedata[a] && gamedata[a] == gamedata[b] && gamedata[b] == gamedata[c]){
+            highlight(pattern);
+            return true;
+        }
+    }
+    return false;
+}
+
+function highlight(pattern){
+    for(let i of pattern){
+        document.getElementById(i).classList.add("winner");
+    }
+}
+
+function resetGame(){
+    gamedata = Array(9).fill(null);
+    current_player = "X";
+    gameOver = false;
+
+    document.getElementById("turn").innerHTML = "X";
+    document.getElementById("result").innerHTML = "";
+
+    let cells = document.getElementsByClassName("col");
+    for(let cell of cells){
+        cell.innerHTML = "";
+        cell.classList.remove("winner");
+    }
+}
+</script>
+
+</body>
+</html>
