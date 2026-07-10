@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #000000;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    #c1 {
+        color: #fdfdfd; /* peach color */
+        font-size: 65px;
+        padding: 30px 70px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 0 20px rgba(255, 183, 165, 0.4),
+                    0 0 40px rgba(255, 183, 165, 0.2);
+        letter-spacing: 4px;
+        text-align: center;
+    }
+</style>
+
+</head>
+
+<body>
+    <div id="c1">00:00:00</div>
+
+<script>
+    $(document).ready(function(){
+        setInterval(clockshow, 1000);
+        clockshow();
+    });
+
+    function clockshow(){
+        var cu_time = new Date();
+
+        var h = cu_time.getHours();
+        var m = cu_time.getMinutes();
+        var s = cu_time.getSeconds();
+
+        h = (h < 10) ? "0" + h : h;
+        m = (m < 10) ? "0" + m : m;
+        s = (s < 10) ? "0" + s : s;
+
+        var time = h + ":" + m + ":" + s;
+
+        $("#c1").text(time);
+    }
+</script>
+
+</body>
+</html>
