@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stopwatch</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0f0f0f, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        #sw {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        #start { background: #28a745; color: white; }
+        #stop { background: #dc3545; color: white; }
+        #reset { background: #ffc107; }
+        #lap { background: #007bff; color: white; }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        #laps {
+            margin-top: 20px;
+            max-height: 150px;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        #laps div {
+            padding: 8px;
+            margin-bottom: 5px;
+            background: #f1f1f1;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div id="sw">00:00:00</div>
+
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="reset">Reset</button>
+    <button id="lap">Lap</button>
+
+    <div id="laps"></div>
+</div>
+
+<script>
+let hh = 0;
+let mm = 0;
+let ss = 0;
+let timer = null;
+let lapCount = 1;
+
+function updatesw() {
+    ss++;
+
+    if (ss >= 60) {
+        ss = 0;
+        mm++;
+    }
+
+    if (mm >= 60) {
+        mm = 0;
+        hh++;
+    }
+
+    $('#sw').text(
+        String(hh).padStart(2, '0') + ":" +
+        String(mm).padStart(2, '0') + ":" +
+        String(ss).padStart(2, '0')
+    );
+}
+
+$(document).ready(function () {
+
+    $('#start').click(function () {
+        if (timer === null) {
+            timer = setInterval(updatesw, 1000);
+        }
+    });
+
+    $('#stop').click(function () {
+        clearInterval(timer);
+        timer = null;
+    });
+
+    $('#reset').click(function () {
+        clearInterval(timer);
+        timer = null;
+ 
+        hh = 0;
+        mm = 0;
+        ss = 0;
+        lapCount = 1;
+
+        $('#sw').text("00:00:00");
+        $('#laps').empty();
+    });
+
+    $('#lap').click(function () {
+        alert("new lap");
+        let currentTime = $('#sw').text();
+        $('#laps').append('<div>Lap ' + lapCount++ + ': ' + currentTime + '</div>');
+    });
+
+});
+</script>
+
+</body>
+</html>
