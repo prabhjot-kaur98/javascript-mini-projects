@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Bank Withdrawal Checker</title>
+<style>
+    body {
+        background-color: #f4f6f9;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 80px;
+        color: #333;
+    }
+
+    h2 {
+        margin-bottom: 25px;
+    }
+
+    input {
+        padding: 10px;
+        margin: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        width: 220px;
+    }
+
+    input:focus {
+        border-color: #4a90e2;
+        outline: none;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background-color: #3b7bd6;
+    }
+
+    #result {
+        margin-top: 18px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+
+<h2>Bank Withdrawal Checker</h2>
+
+<label>Enter Balance:</label> <input type="number" id="balance"><br><br>
+
+<label>Enter Withdrawal Amount:</label> <input type="number" id="amount"><br><br>
+
+<button onclick="checkWithdrawal()">Check</button>
+
+<p id="result"></p>
+
+<script>
+function checkWithdrawal() {
+    let balance = document.getElementById("balance").value;
+    let amount = document.getElementById("amount").value;
+
+    if (amount <= balance) {
+        document.getElementById("result").innerHTML = "Withdrawal Successful!";
+    } else {
+        document.getElementById("result").innerHTML = "Insufficient Balance!";
+    }
+}
+</script>
+
+</body>
+</html>
